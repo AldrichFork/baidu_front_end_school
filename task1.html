@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Aldrich Fork">
+    <title>IFE JavaScript Task 01</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/task.css">
+</head>
+<body>
+    <div class="public-header">
+    <div class="public-container clearfloat">
+        <div class="header-logo">
+            <a href="index.html"></a>
+        </div>
+        <ul class="header-nav clearfloat">
+            <li class="item"><a href="index.html">Home</a></li>
+            <li class="item"><a href="http://ife.baidu.com/" target="_blank">IFE 2017</a></li>
+            <li class="item"><a href="mailto:aldrich.fork@live.com">Connect me</a></li>
+        </ul>
+    </div>
+</div>
+    <div class="index-banner">
+        <div class="index-banner-bg"><img src="images/index-banner.jpg" alt="banner" /></div>
+        <div class="index-banner-text">
+            <div class="text-logo"></div>
+            <p class="text-info">
+                <i class="line"></i>
+                <span class="txt">一万次悲伤，依然会有dream</span>
+                <i class="line"></i>
+            </p>
+        </div>
+    </div>
+    <div class="public-container">
+        <h2 class="task-header">IFE JavaScript Task 01</h2>
+        <p class="task-detail">任务描述：本任务完成的功能为：用户可以在输入框中输入任何内容，点击“确认填写”按钮后，用户输入的内容会显示在输入框下方白色区域</p>
+        <div class="task-1-container">
+            <input class="answer-input" type="text" placeholder="请在此处填写内容">
+            <button class="sub-btn"  onclick="displayAnswer()">确认填写</button>
+            <div class="answer-display">加油！</div>
+        </div>
+    </div>
+    <div class="public-footer">
+        <div class="public-container clearfloat">
+            <div class="public-footer-logo"></div>
+            <div class="public-footer-info">
+                <a href="mailto:aldrich.fork@live.com">Email : aldrich.fork@live.com</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function displayAnswer() {
+            var answer_input=document.getElementsByClassName("answer-input")[0].value;
+            var answer_display=document.getElementsByClassName("answer-display")[0];
+            answer_display.innerHTML=answer_input;
+        }
+    </script>
+</body>
+</html>
