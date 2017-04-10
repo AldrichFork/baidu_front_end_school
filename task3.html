@@ -57,6 +57,7 @@
         </ul>
 
         <button id="sort-btn">排序</button>
+        <a href="https://github.com/AldrichFork/baidu_front_end_school/blob/master/task3.html">代码地址</a>
     </div>
 </div>
 <div class="public-footer">
@@ -76,15 +77,15 @@
      * 返回一个数组，格式见函数中示例
      */
     function getData() {
-        var source=document.getElementById("source");
-        var cities=source.getElementsByTagName("li");
-        var data=[];
+        var source=document.getElementById("source");                 //读取id为source的列表
+        var cities=source.getElementsByTagName("li");                 //声明变量cities并把source变量中的li标签赋给cities变量
+        var data=[];                                                  //创建一个空的数组赋给data变量
         for(var i=0;i<cities.length;i++){
-            data[i]=[];
+            data[i]=[];                                               //把新的数组元素赋给data数组中的每一个数组对象
             data[i][0]=cities[i].innerHTML.substring(0,cities[i].innerHTML.indexOf("空"));
-            var b=cities[i].getElementsByTagName("b");
-            data[i].push(parseInt(b[0].innerHTML));
-
+            //运用string对象的substring方法提取cities变量中的第一个字符到“空”这个字符首次出现之前的一个字符
+            var b=cities[i].getElementsByTagName("b");                //获取变量cities中标签为b的元素并赋值给变量b
+            data[i].push(parseInt(b[0].innerHTML));                   //利用array对象的push方法和parseInt函数把b变量中数组对象的数字提取出来并向data变量的数组中添加元素
         }
         /*
          data = [
@@ -120,8 +121,8 @@
             var create_li=document.createElement("li");
             create_li.innerHTML="第"+rank[i]+"名:"+data[i][0]+"空气质量：";
             var b=document.createElement("b");
-            b.innerHTML=data[i][1];
-            create_li.appendChild(b);
+            b.innerHTML=data[i][1];                                    //将data中的数字元素注入到b标签中
+            create_li.appendChild(b);                                  //利用appendChild方法将b标签添加到create_li变量中
             var resort=document.getElementById("resort");
             resort.appendChild(create_li);
         }
@@ -136,11 +137,10 @@
     function init() {
 
         // 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数
-        document.getElementById("sort-btn").onclick = function() {
-            btnHandle();
+        document.getElementById("sort-btn").onclick =btnHandle
         }
 
-    }
+
 
     init();
 
