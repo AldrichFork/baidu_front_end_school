@@ -1,4 +1,6 @@
 
+
+
 .index-banner {
     position: relative;
     background-color: #3b3b3b;
@@ -110,27 +112,7 @@
 .menu-item a:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
-/* 暂时不用这个元素
-.index-menu .more-btn {
-    margin: 0 auto;
-    width: 121px;
-    height: 32px;
-    padding-left: 14px;
-    border: 1px solid #d7d5d5;
-    font-size: 14px;
-    line-height: 32px;
-    color: #b7b7b7;
-}
 
-
-.index-menu .more-btn .icon {
-    display: inline-block;
-    width: 11px;
-    height: 7px;
-    margin-left: 11px;
-    background: url("../images/more-btn.png");
-}
-*/
 
 .index-panel {
     margin-top: 60px;
@@ -151,25 +133,6 @@
     margin-top: 18px;
 }
 
-/* 轮播导航 暂时不用
-.index-panel-header .btn-group {
-    float: right;
-    font-size: 0;
-}
-
-.index-panel-header .btn {
-    width: 9px;
-    height: 9px;
-    display: inline-block;
-    margin-left: 11px;
-    background-color: #dedede;
-    border-radius: 50%;
-}
-
-.index-panel-header .active {
-    background-color: #9b9b9b;
-}
-*/
 .index-panel-body {
     margin-top: 75px;
 }

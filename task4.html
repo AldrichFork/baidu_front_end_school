@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Aldrich Fork">
+    <link rel="stylesheet" href="css/reset.css">
+
+    <title>IFE JavaScript Task 04</title>
+    <style>
+        span {
+            background-color: #f34949;
+            margin-right: 5px;
+        }
+        a {
+            color: black;
+            margin-top: 20px;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!--
+    题目要求
+    模拟一个队列，队列的每个元素是一个数字，初始队列为空
+    有一个input输入框，以及4个操作按钮
+    点击"左侧入"，将input中输入的数字从左侧插入队列中；
+    点击"右侧入"，将input中输入的数字从右侧插入队列中；
+    点击"左侧出"，读取并删除队列左侧第一个元素，并弹窗显示元素中数值；
+    点击"右侧出"，读取并删除队列又侧第一个元素，并弹窗显示元素中数值；
+    点击队列中任何一个元素，则该元素会被从队列中删除
+    -->
+
+    <!--
+     思路：
+        HTML部分：
+            先写出input输入框和四个操作按钮，并且给将要输入的内容留出空位
+        JS部分：分为四个函数。
+
+    -->
+    <label>输入数字:</label>
+    <input id="num-input" type="number" placeholder="请填入数字"/>     <!-- 这里我直接把input的type属性设定成数字了 -->
+    <button id="left-in">左侧入</button>
+    <button id="right-in">右侧入</button>
+    <button id="left-out">左侧出</button>
+    <button id="right-out">右侧出</button>
+    <p id="num-queue"></p>
+    <a href="https://github.com/AldrichFork/baidu_front_end_school/blob/master/task4.html">本任务代码地址</a>
+    <a href="index.html">所有Demo导航</a>
+    <script>
+
+        var num_input=document.getElementById("num-input");
+        var left_in=document.getElementById("left-in");
+        var right_in=document.getElementById("right-in");
+        var left_out=document.getElementById("left-out");
+        var right_out=document.getElementById("right-out");
+        var num_queue=document.getElementById("num-queue");
+
+        function createSpan() {
+            if(num_input.value=="") {                                           //如果输入值为空则提示“请输入数字”
+                alert("请输入数字");
+            }else{
+                var create_span=document.createElement("span");                 //创建span标签
+                create_span.innerHTML=num_input.value;                          //将输入的数字注入到新创建的span标签里
+                num_input.value="";                                             //将输入框中的值重置为0
+
+                return create_span;                                             //返回创建的span标签
+
+            }
+        }
+
+        function leftIn() {
+            num_queue.insertBefore(createSpan(),num_queue.childNodes[0]);       //使用insertBefore在num-queue的第一个元
+        }                                                                       //素子节点前插入新建的span标签
+
+        function rightIn() {
+            num_queue.appendChild(createSpan());                                //使用appendChild在num-queue的最后一个元
+        }                                                                       //素子节点之后插入新建的span标签
+
+
+       function leftOut() {
+           if (confirm("最左侧值为"+num_queue.firstChild.innerHTML+"确定删除吗？"))
+           {                                                                    //弹出提示框显示即将被删除的值
+               num_queue.removeChild(num_queue.firstChild);                     //点击确定将把num_queue第一个元素子节点删除
+           }
+           else {
+               alert("取消删除");                                               //点击取消则取消删除
+           }
+       }
+
+       function rightOut() {
+           if (confirm("最右侧值为"+num_queue.lastChild.innerHTML+"确定删除吗？"))
+           {
+               num_queue.removeChild(num_queue.lastChild);
+           }
+           else{
+               alert("删除取消");
+           }
+       }
+
+        function init() {                                                       //按键绑定
+            left_in.onclick=leftIn;
+            right_in.onclick=rightIn;
+            left_out.onclick=leftOut;
+            right_out.onclick=rightOut;
+        }
+
+        init();
+
+    </script>
+
+
+</body>
+</html>

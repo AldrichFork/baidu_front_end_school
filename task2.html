@@ -3,87 +3,55 @@
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Aldrich Fork">
-    <title>IFE JavaScript Task 02</title>
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/task.css">
+    <title>IFE JavaScript Task 02</title>
+    <style>
+        a {
+            color: black;
+            margin-top: 20px;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<div class="public-header">
-    <div class="public-container clearfloat">
-        <div class="header-logo">
-            <a href="index.html"></a>
-        </div>
-        <ul class="header-nav clearfloat">
-            <li class="item"><a href="index.html">Home</a></li>
-            <li class="item"><a href="http://ife.baidu.com/" target="_blank">IFE 2017</a></li>
-            <li class="item"><a href="mailto:aldrich.fork@live.com">Connect me</a></li>
-        </ul>
-    </div>
-</div>
-<div class="index-banner">
-    <div class="index-banner-bg"><img src="images/index-banner.jpg" alt="banner" /></div>
-    <div class="index-banner-text">
-        <div class="text-logo"></div>
-        <p class="text-info">
-            <i class="line"></i>
-            <span class="txt">一万次悲伤，依然会有dream</span>
-            <i class="line"></i>
-        </p>
-    </div>
-</div>
-<div class="public-container">
-    <h2 class="task-header">IFE JavaScript Task 02</h2>
-    <p class="task-detail">页面加载后，将提供的空气质量数据数组，按照某种逻辑（比如空气质量大于60）进行过滤筛选，最后将符合条件的数据按照一定的格式要求显示在网页上</p>
-    <div class="task-1-container">
-        <h3>重度污染城市列表</h3>
-        <ul id="aqi-list">
-            <!--
-                <li>第一名：福州（样例），10</li>
-                <li>第二名：福州（样例），10</li>
-            -->
-        </ul>
-        <a href="https://github.com/AldrichFork/baidu_front_end_school/blob/master/task2.html">代码地址</a>
-    </div>
-</div>
-<div class="public-footer">
-    <div class="public-container clearfloat">
-        <div class="public-footer-logo"></div>
-        <div class="public-footer-info">
-            <a href="mailto:aldrich.fork@live.com">Email : aldrich.fork@live.com</a>
-        </div>
-    </div>
-</div>
+    <h3>重度污染城市列表</h3>
+    <ul id="aqi-list">
+        <!--
+            <li>第一名：福州（样例），10</li>
+            <li>第二名：福州（样例），10</li>
+        -->
+    </ul>
+    <a href="https://github.com/AldrichFork/baidu_front_end_school/blob/master/task2.html">本任务代码地址</a>
+    <a href="index.html">所有Demo导航</a>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    var aqiData = [
-        ["北京", 90],
-        ["上海", 50],
-        ["福州", 10],
-        ["广州", 50],
-        ["成都", 90],
-        ["西安", 100]
-    ];
-    (function () {
-        /*
-         在注释下方编写代码
-         遍历读取aqiData中各个城市的数据
-         将空气质量指数大于60的城市显示到aqi-list的列表中
-         */
-        var aqi_heavy= aqiData.filter(function (aqi){return aqi[1] >= 60;});  //获取aqiData数组中每一个子集中第二个元素大于60的数组。
-        aqi_heavy.sort(function (a,b){return b[1]-a[1]});                     //为aqiData数组按照每个子集中的第二个元素大小降序排列
-        var aqi_list=document.getElementById("aqi-list");                     //声明变量aqi_list，并赋值获取元素aqi-list
-        aqi_heavy.forEach(exportLi);                                          //遍历读取aqi_heavy，并执行函数exportLi
+        var aqiData = [
+            ["北京", 90],
+            ["上海", 50],
+            ["福州", 10],
+            ["广州", 50],
+            ["成都", 90],
+            ["西安", 100]
+        ];
+        (function () {
+            /*
+             在注释下方编写代码
+             遍历读取aqiData中各个城市的数据
+             将空气质量指数大于60的城市显示到aqi-list的列表中
+             */
+            var aqi_heavy= aqiData.filter(function (aqi){return aqi[1] >= 60;});  //获取aqiData数组中每一个子集中第二个元素大于60的数组。
+            aqi_heavy.sort(function (a,b){return b[1]-a[1]});                     //为aqiData数组按照每个子集中的第二个元素大小降序排列
+            var aqi_list=document.getElementById("aqi-list");                     //声明变量aqi_list，并赋值获取元素aqi-list
+            aqi_heavy.forEach(exportLi);                                          //遍历读取aqi_heavy，并执行函数exportLi
 
-        function exportLi(item,index) {                                       //函数exportLi，参数item，必须，当前元素。参数index，可选，当前元素索引
-            var create_li=document.createElement("li");                       //创建“li”标签
-            var add_aqi_list_item=aqi_list.appendChild(create_li);            //将“li”标签插入aqi-list“ul”标签中
-            add_aqi_list_item.innerHTML="第"+(index+1)+"名:"+item;            //填写名次和当前元素内容
-        }
-    })();
+            function exportLi(item,index) {                                       //函数exportLi，参数item，必须，当前元素。参数index，可选，当前元素索引
+                var create_li=document.createElement("li");                       //创建“li”标签
+                var add_aqi_list_item=aqi_list.appendChild(create_li);            //将“li”标签插入aqi-list“ul”标签中
+                add_aqi_list_item.innerHTML="第"+(index+1)+"名:"+item;            //填写名次和当前元素内容
+            }
+        })();
 
-</script>
+    </script>
 </body>
 </html>
