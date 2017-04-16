@@ -98,14 +98,26 @@
            }
        }
 
+        num_queue.onclick=function(a) {
+           num_queue.removeChild(a.target);                                     //利用target事件属性获取当前事件的目标节点
+       };
+
         function init() {                                                       //按键绑定
             left_in.onclick=leftIn;
             right_in.onclick=rightIn;
             left_out.onclick=leftOut;
             right_out.onclick=rightOut;
+
+
         }
 
         init();
+
+
+
+
+
+
 
     </script>
 
