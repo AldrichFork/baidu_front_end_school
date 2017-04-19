@@ -39,10 +39,10 @@
     <!--
      思路：数字限制10-100用if/else语句来实现；
      读取队列元素个数，用if/else语句判断是否超过60，超过60后提示；
-     获取li元素中的数值，赋给新的数组，用sort() 方法对新数组排序
+     获取li元素中的数值，赋给新的数组，用sort() 方法对新数组排序,再输出排好序的新数组
     -->
     <label>输入数字:</label>
-    <input id="num-input" type="number" placeholder="请填入数字"/>     <!-- 这里我直接把input的type属性设定成数字了 -->
+    <input id="num-input" type="number" placeholder="请填入数字"/>
     <button id="left-in">左侧入</button>
     <button id="right-in">右侧入</button>
     <button id="left-out">左侧出</button>
@@ -65,8 +65,8 @@
             if(num_input.value>=10 && num_input.value<=100) {                   //添加条件：输入10-100内的数字
                 var create_li=document.createElement("li");
                 create_li.innerHTML=num_input.value;
-                create_li.style.height=(num_input.value)*2+"px";
-                num_input.value="";                                             //将输入框中的值重置为0
+                create_li.style.height=(num_input.value)*2+"px";                //利用Style对象的height属性修改li标签的高度
+                num_input.value="";
 
                 return create_li;
             }else{
@@ -119,19 +119,19 @@
 
         function sortQueue(){
             var num_list=num_queue.getElementsByTagName("li");
-            var data=[];
+            var data=[];                                                        //声明变量data并把空的数组对象赋给data
             for (var i=0;i<num_list.length;i++){
-                var temp=num_list[i].childNodes[0].nodeValue;
-                data.push(temp);
+                var temp=num_list[i].childNodes[0].nodeValue;                   //利用nodeValue 属性获取li元素内的数值
+                data.push(temp);                                                //利用push方法把获取的数值赋给data数组
             }
 
             data.sort(function (a,b) {
-                return a-b
+                return a-b                                                      //对data进行数字升序排序
             });
 
             for(var n=0;n<data.length;n++){
-                num_list[n].innerHTML=data[n];
-                num_list[n].style.height=data[n]*2+"px";
+                num_list[n].innerHTML=data[n];                                  //将排好序的data数组中的元素填入li标签中
+                num_list[n].style.height=data[n]*2+"px";                        //按顺序把li标签的高度设置成输入数字*2的高度
             }
             return num_list;
 
