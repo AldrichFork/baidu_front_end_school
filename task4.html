@@ -35,7 +35,10 @@
      思路：
         HTML部分：
             先写出input输入框和四个操作按钮，并且给将要输入的内容留出空位
-        JS部分：分为四个函数。
+        JS部分：
+            1.获取输入框内容--创建新的span标签--将输入框内的值填入并把span
+            标签按规则插入p标签.
+            2.获取被点击的元素--删除被点击的元素
 
     -->
     <label>输入数字:</label>
@@ -108,16 +111,9 @@
             left_out.onclick=leftOut;
             right_out.onclick=rightOut;
 
-
         }
 
         init();
-
-
-
-
-
-
 
     </script>
 
