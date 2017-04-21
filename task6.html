@@ -8,8 +8,18 @@
     <title>IFE JavaScript Task 04</title>
     <style>
         span {
+            display:inline-block;
+            width:auto;
+            height:80px;
             background-color: #f34949;
-            margin-right: 5px;
+            color:#fff;
+            font-size:20px;
+            text-align:center;
+            padding-top:10px;
+            padding-left:10px;
+            padding-right:10px;
+            margin-right:5px;
+            margin-bottom:5px;
         }
         a {
             color: black;
@@ -46,77 +56,100 @@
     <button id="right-out">右侧出</button>
     <input id="search" type="text" placeholder="请输入要搜索的内容"/>
     <button id="search-btn">查找</button>
-    <p id="container"></p>
+    <p id="queue">
+        <!--
+        <span></span>
+        <span></span>
+        <span></span>
+        -->
+    </p>
     <a href="https://github.com/AldrichFork/baidu_front_end_school/blob/master/task4.html">本任务代码地址</a>
     <a href="index.html">所有Demo导航</a>
     <a href="http://v2ss.net/users/aff.php?aff=1462" target="_blank">梯子:V2SS</a>
     <script>
 
-        var input_value=document.getElementById("input-value").value;
+
         var left_in=document.getElementById("left-in");
         var right_in=document.getElementById("right-in");
         var left_out=document.getElementById("left-out");
         var right_out=document.getElementById("right-out");
-        var container=document.getElementById("container");
-
+        var queue=document.getElementById("queue");
+        var search_btn=document.getElementById("search-btn");
         function createNode(content) {
-            if(input_value=="") {
-                alert("请输入内容");
-            }else{
                 var new_span=document.createElement("span");
                 var text_node=document.createTextNode(content);
                 new_span.appendChild(text_node);
                 return new_span;
-            }
         }
 
         function leftIn() {
+            var input_value=document.getElementById("input-value").value;
             if(input_value.length>0){
-            var inputArray = input_value.split(/\r|,|，|、|\s/);
-            var len = inputArray.length;
-            var queue = document.getElementById("queue");
-            for(var i = 0;i<len;i++){
-                var newNode = createNode(inputArray[i]);
-                queue.insertBefore(newNode,queue.childNodes[0]);
+            var inputArray = input_value.split(/,|，|、|\s|\r/);
+            for (var i=0;i<inputArray.length;i++){
+                var new_node=createNode(inputArray[i]);
+                queue.insertBefore(new_node,queue.childNodes[0]);
             }
-        }
-            container.insertBefore(createSpan(),container.childNodes[0]);
+        }else {
+                alert("请输入数字、中文、英文等")
+            }
+
         }
 
         function rightIn() {
-            container.appendChild(createSpan());
+            var input_value=document.getElementById("input-value").value;
+            if(input_value.length>0){
+                var inputArray = input_value.split(/,|，|、|\s|\r/);
+                for (var i=0;i<inputArray.length;i++){
+                    var new_node=createNode(inputArray[i]);
+                    queue.appendChild(new_node);
+                }
+            }else {
+                alert("请输入数字、中文、英文等")
+            }
+
         }
 
 
        function leftOut() {
-           if (confirm("最左侧值为"+container.firstChild.innerHTML+"确定删除吗？"))
+           if (confirm("最左侧值为"+queue.firstChild.innerHTML+"确定删除吗？"))
            {
-               container.removeChild(container.firstChild);}
+               queue.removeChild(queue.firstChild);}
            else {
                alert("取消删除");
            }
        }
 
        function rightOut() {
-           if (confirm("最右侧值为"+container.lastChild.innerHTML+"确定删除吗？"))
+           if (confirm("最右侧值为"+queue.lastChild.innerHTML+"确定删除吗？"))
            {
-               container.removeChild(container.lastChild);
+               queue.removeChild(queue.lastChild);
            }
            else{
                alert("删除取消");
            }
        }
 
-        container.onclick=function(a) {
-           container.removeChild(a.target);
+        queue.onclick=function(a) {
+           queue.removeChild(a.target);
        };
 
+        function search() {
+        var search_input_value=document.getElementById("search").value;
+        var search_value=eval("/"+search_input_value+"/g");
+        for (var i=0;i<queue.children.length;i++){
+          var str=queue.children[i].innerHTML.replace(search_value,"<span style='color:blue;height: 60px'>"+search_input_value+"</span>");
+            queue.children[i].innerHTML = str;
+        }
+
+        }
+        
         function init() {
             left_in.onclick=leftIn;
             right_in.onclick=rightIn;
             left_out.onclick=leftOut;
             right_out.onclick=rightOut;
-
+            search_btn.onclick=search;
         }
 
         init();
