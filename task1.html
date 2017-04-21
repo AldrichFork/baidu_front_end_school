@@ -14,18 +14,20 @@
     </style>
 </head>
 <body>
-    <input class="answer-input" type="text" placeholder="请在此处填写内容">
-    <button class="sub-btn"  onclick="displayAnswer()">确认填写</button>
-    <div class="answer-display">加油！</div>
+    <input id="answer-input" type="text" placeholder="请在此处填写内容">
+    <button id="sub-btn">确认填写</button>
+    <div id="answer-display">加油！</div>
     <a href="https://github.com/AldrichFork/baidu_front_end_school/blob/master/task1.html">本任务代码地址</a>
     <a href="index.html">所有Demo导航</a>
+    <a href="http://v2ss.net/users/aff.php?aff=1462" target="_blank">梯子:V2SS</a>
 
     <script type="text/javascript">
         function displayAnswer() {
-            var answer_input=document.getElementsByClassName("answer-input")[0].value;
-            var answer_display=document.getElementsByClassName("answer-display")[0];
+            var answer_input=document.getElementById("answer-input").value;
+            var answer_display=document.getElementById("answer-display");
             answer_display.innerHTML=answer_input;
         }
+        document.getElementById("sub-btn").onclick=displayAnswer;
     </script>
 </body>
 </html>

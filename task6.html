@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Aldrich Fork">
+    <link rel="stylesheet" href="css/reset.css">
+
+    <title>IFE JavaScript Task 04</title>
+    <style>
+        span {
+            background-color: #f34949;
+            margin-right: 5px;
+        }
+        a {
+            color: black;
+            margin-top: 20px;
+            text-decoration: underline;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <!--
+    题目要求
+    基于任务四进行升级
+    将新元素输入框从input改为textarea
+    允许一次批量输入多个内容，格式可以为数字、中文、英文等，
+    可以通过用回车，逗号（全角半角均可），顿号，空格
+    （全角半角、Tab等均可）等符号作为不同内容的间隔
+    增加一个查询文本输入框，和一个查询按钮，当点击查询时，
+    将查询词在各个元素内容中做模糊匹配，将匹配到的内容进行特殊标识，
+    如文字颜色等。举例，内容中有abcd，查询词为ab或bc，则该内容需要标识
+    -->
+
+    <!--
+     思路：
+
+
+    -->
+    <textarea id="input-value" placeholder="请填入数字、中文、英文等" rows="6" cols="30"></textarea>
+    <button id="left-in">左侧入</button>
+    <button id="right-in">右侧入</button>
+    <button id="left-out">左侧出</button>
+    <button id="right-out">右侧出</button>
+    <input id="search" type="text" placeholder="请输入要搜索的内容"/>
+    <button id="search-btn">查找</button>
+    <p id="container"></p>
+    <a href="https://github.com/AldrichFork/baidu_front_end_school/blob/master/task4.html">本任务代码地址</a>
+    <a href="index.html">所有Demo导航</a>
+    <a href="http://v2ss.net/users/aff.php?aff=1462" target="_blank">梯子:V2SS</a>
+    <script>
+
+        var input_value=document.getElementById("input-value").value;
+        var left_in=document.getElementById("left-in");
+        var right_in=document.getElementById("right-in");
+        var left_out=document.getElementById("left-out");
+        var right_out=document.getElementById("right-out");
+        var container=document.getElementById("container");
+
+        function createNode(content) {
+            if(input_value=="") {
+                alert("请输入内容");
+            }else{
+                var new_span=document.createElement("span");
+                var text_node=document.createTextNode(content);
+                new_span.appendChild(text_node);
+                return new_span;
+            }
+        }
+
+        function leftIn() {
+            if(input_value.length>0){
+            var inputArray = input_value.split(/\r|,|，|、|\s/);
+            var len = inputArray.length;
+            var queue = document.getElementById("queue");
+            for(var i = 0;i<len;i++){
+                var newNode = createNode(inputArray[i]);
+                queue.insertBefore(newNode,queue.childNodes[0]);
+            }
+        }
+            container.insertBefore(createSpan(),container.childNodes[0]);
+        }
+
+        function rightIn() {
+            container.appendChild(createSpan());
+        }
+
+
+       function leftOut() {
+           if (confirm("最左侧值为"+container.firstChild.innerHTML+"确定删除吗？"))
+           {
+               container.removeChild(container.firstChild);}
+           else {
+               alert("取消删除");
+           }
+       }
+
+       function rightOut() {
+           if (confirm("最右侧值为"+container.lastChild.innerHTML+"确定删除吗？"))
+           {
+               container.removeChild(container.lastChild);
+           }
+           else{
+               alert("删除取消");
+           }
+       }
+
+        container.onclick=function(a) {
+           container.removeChild(a.target);
+       };
+
+        function init() {
+            left_in.onclick=leftIn;
+            right_in.onclick=rightIn;
+            left_out.onclick=leftOut;
+            right_out.onclick=rightOut;
+
+        }
+
+        init();
+
+    </script>
+
+
+</body>
+</html>
