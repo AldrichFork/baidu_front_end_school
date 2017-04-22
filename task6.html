@@ -7,10 +7,10 @@
 
     <title>IFE JavaScript Task 04</title>
     <style>
-        span {
+        .input-result {
             display:inline-block;
             width:auto;
-            height:80px;
+            height:40px;
             background-color: #f34949;
             color:#fff;
             font-size:20px;
@@ -78,6 +78,7 @@
         function createNode(content) {
                 var new_span=document.createElement("span");
                 var text_node=document.createTextNode(content);
+                new_span.setAttribute("class","input-result");
                 new_span.appendChild(text_node);
                 return new_span;
         }
@@ -85,9 +86,9 @@
         function leftIn() {
             var input_value=document.getElementById("input-value").value;
             if(input_value.length>0){
-            var inputArray = input_value.split(/,|，|、|\s|\r/);
+            var inputArray = input_value.split(/,|，|、|\s|\r/);          //利用split方法对输入的值进行检索并分割，该方法返回字符串数组
             for (var i=0;i<inputArray.length;i++){
-                var new_node=createNode(inputArray[i]);
+                var new_node=createNode(inputArray[i]);                   //将split方法返回的数组按次序创建span标签并插入到队列左侧
                 queue.insertBefore(new_node,queue.childNodes[0]);
             }
         }else {
@@ -136,10 +137,11 @@
 
         function search() {
         var search_input_value=document.getElementById("search").value;
-        var search_value=eval("/"+search_input_value+"/g");
+        var search_value=eval("/"+search_input_value+"/g");                 //利用eval全局函数把输入框内的值变成正则表达式
         for (var i=0;i<queue.children.length;i++){
-          var str=queue.children[i].innerHTML.replace(search_value,"<span style='color:blue;height: 60px'>"+search_input_value+"</span>");
-            queue.children[i].innerHTML = str;
+            var str=queue.children[i].innerHTML.toString();                 //利用toString方法把p元素内指定子节点转换成字符串
+            str=str.replace(search_value,"<span style='color:blue;'>"+search_input_value+"</span>");
+            queue.children[i].innerHTML = str;                              //利用replace方法替换语正则表达式匹配的字符
         }
 
         }
