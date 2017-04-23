@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Aldrich Fork">
+    <style type="text/css">
+        .root,.node-1,.node-2{
+            border:1px solid black;
+            padding: 5px;
+            margin: 5px;
+            float: left;
+            box-sizing: content-box;
+        }
+        .root{
+            width: 700px;
+            height: 500px;
+        }
+        .node-1{
+            width: 300px;
+            height: 200px;
+        }
+        .node-2{
+            width: 100px;
+            height: 50px;
+        }
+    </style>
+    <title>IFE JavaScript Task 08</title>
+</head>
+<body>
+<div class="root">中国
+    <div class="node-1">华东
+        <div class="node-2">上海</div>
+        <div class="node-2">江苏</div>
+        <div class="node-2">浙江</div>
+    </div>
+    <div class="node-1">华南
+        <div class="node-2">广东</div>
+        <div class="node-2">广西</div>
+    </div>
+    <div class="node-1">西北</div>
+</div>
+<input type="button" id="traverse" value="遍历">
+<input type="text" id="searchVal" placeholder="search">
+<input type="button" value="search" id="search">
+<a href="https://github.com/AldrichFork/baidu_front_end_school/blob/master/task8.html">本任务代码地址</a>
+<a href="index.html">所有Demo导航</a>
+<a href="http://v2ss.net/users/aff.php?aff=1462" target="_blank">梯子:V2SS</a>
+<script type="text/javascript">
+    var btn = document.getElementsByTagName("input"),
+        traverse=btn[0],
+        treeNodes=[],
+        treeRoot=document.getElementsByClassName("root")[0],
+        searchVal=document.getElementById("searchVal"),
+        divs=document.getElementsByTagName("div"),
+        divsValue=[],
+        search=document.getElementById("search"),
+        timer=null;
+
+    for(var i=0;i<divs.length;i++){
+        var vv=divs[i].innerHTML;
+        divsValue.push(vv);
+    }
+
+    window.onload=function(){
+        traverse.onclick=function(){
+            reset();
+            preOrder(treeRoot);
+            changeColor();
+        };
+        search.onclick=function(){
+
+
+            var searchNode=searchVal.value;
+            var i=divsValue.indexOf(searchNode);
+            if(i>0){
+                divs[i].style.backgroundColor="#F34949";
+                setTimeout(function(){
+                    divs[i].style.backgroundColor="white";
+                },5000);
+            }else{
+                alert("no such node");
+            }
+        }
+    };
+
+    function preOrder(node){
+        if(!(node==null)){
+            treeNodes.push(node);
+            for(var i=0;i<node.children.length;i++){
+                preOrder(node.children[i]);
+            }
+        }
+    }
+
+    function changeColor(){
+        var i=0;
+        treeNodes[i].style.backgroundColor="#F34949";
+        timer=setInterval(function(){
+            i++;
+            if(i<treeNodes.length){
+                treeNodes[i-1].style.backgroundColor="white";
+                treeNodes[i].style.backgroundColor="#F34949";
+            }else{
+                clearInterval(timer);
+                treeNodes[i].style.backgroundColor="white";
+            }
+        },700)
+    }
+
+    function reset(){
+        treeNodes=[];
+        clearInterval(timer);
+        for(var i=0;i<divs.length;i++){
+            divs[i].style.backgroundColor="white";
+        }
+    }
+
+</script>
+
+</body>
+</html>
