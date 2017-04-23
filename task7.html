@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Aldrich Fork">
+    <style type="text/css">
+        .root,.node-1,.node-2,.node-3,.node-4{
+            border:1px solid black;
+            padding: 5px;
+            margin: 5px;
+            float: left;
+            box-sizing: content-box;
+
+        }
+        .root{
+            width: 800px;
+            height: 600px;
+        }
+        .node-1{
+            width: 700px;
+            height: 250px;
+        }
+        .node-2{
+            width: 320px;
+            height: 200px;
+        }
+        .node-3{
+            width: 120px;
+            height: 150px;
+        }
+        .node-4{
+            width: 60px;
+            height: 30px;
+        }
+    </style>
+    <title>IFE JavaScript Task 07</title>
+</head>
+<body>
+<div class="root">root
+    <div class="node-1">1
+        <div class="node-2">2
+            <div class="node-3">3
+                <div class="node-4">4</div>
+                <div class="node-4">4</div>
+            </div>
+            <div class="node-3">3
+                <div class="node-4">4</div>
+                <div class="node-4">4</div>
+            </div>
+        </div>
+        <div class="node-2">2
+            <div class="node-3">3
+                <div class="node-4">4</div>
+                <div class="node-4">4</div>
+            </div>
+            <div class="node-3">3
+                <div class="node-4">4</div>
+                <div class="node-4">4</div>
+            </div>
+        </div>
+    </div>
+    <div class="node-1">1
+        <div class="node-2">2
+            <div class="node-3">3
+                <div class="node-4">4</div>
+                <div class="node-4">4</div>
+            </div>
+            <div class="node-3">3
+                <div class="node-4">4</div>
+                <div class="node-4">4</div>
+            </div>
+        </div>
+        <div class="node-2">2
+            <div class="node-3">3
+                <div class="node-4">4</div>
+                <div class="node-4">4</div>
+            </div>
+            <div class="node-3">3
+                <div class="node-4">4</div>
+                <div class="node-4">4</div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="button" value="前序">
+<input type="button" value="中序">
+<input type="button" value="后序">
+<script type="text/javascript">
+    var btn=document.getElementsByTagName("input"),
+        preBtn=btn[0],
+        inBtn=btn[1],
+        lastBtn=btn[2],
+        treeNodes=[],
+        treeRoot=document.getElementsByClassName("root")[0],
+        timer=null;
+    window.onload=function(){
+        preBtn.onclick=function(){
+            reset();
+            preOrder(treeRoot);
+            changeColor();
+        };
+        inBtn.onclick=function(){
+            reset();
+            inOrder(treeRoot);
+            changeColor();
+        };
+        lastBtn.onclick=function(){
+            reset();
+            lastOrder(treeRoot);
+            changeColor();
+        }
+    };
+    function preOrder(node){
+        if(!(node==null)){
+            treeNodes.push(node);
+            preOrder(node.firstElementChild);
+            preOrder(node.lastElementChild);
+        }
+    }
+    function inOrder(node){
+        if(!(node==null)){
+            inOrder(node.firstElementChild);
+            treeNodes.push(node);
+            inOrder(node.lastElementChild);
+        }
+    }
+    function lastOrder(node){
+        if(!(node==null)){
+            lastOrder(node.firstElementChild);
+            lastOrder(node.lastElementChild);
+            treeNodes.push(node);
+        }
+    }
+    function changeColor(){
+        var i=0;
+        treeNodes[i].style.backgroundColor="#F34949";
+        timer=setInterval(function(argument){
+            i++;
+            if(i<treeNodes.length){
+                treeNodes[i-1].style.backgroundColor="white";
+                treeNodes[i].style.backgroundColor="#F34949";
+            }else{
+                clearInterval(timer);
+                treeNodes[i].style.backgroundColor="white";
+            }
+        },700)
+    }
+    function reset(){
+        treeNodes=[];
+        clearInterval(timer);
+        var divs= document.getElementsByTagName("div");
+        for(var i=0;i<divs.length;i++){
+            divs[i].style.backgroundColor="white";
+        }
+    }
+</script>
+</body>
+</html>

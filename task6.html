@@ -5,7 +5,7 @@
     <meta name="author" content="Aldrich Fork">
     <link rel="stylesheet" href="css/reset.css">
 
-    <title>IFE JavaScript Task 04</title>
+    <title>IFE JavaScript Task 06</title>
     <style>
         .input-result {
             display:inline-block;
@@ -141,7 +141,7 @@
         for (var i=0;i<queue.children.length;i++){
             var str=queue.children[i].innerHTML.toString();                 //利用toString方法把p元素内指定子节点转换成字符串
             str=str.replace(search_value,"<span style='color:blue;'>"+search_input_value+"</span>");
-            queue.children[i].innerHTML = str;                              //利用replace方法替换语正则表达式匹配的字符
+            queue.children[i].innerHTML=str;                              //利用replace方法替换语正则表达式匹配的字符
         }
 
         }
