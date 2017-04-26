@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>IFE JavaScript Task 09</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .button-bar{
+            text-align: center;
+            margin: 30px auto;
+
+        }
+        .btn{
+            display: inline-block;
+            background-color: #1b6d85;
+            color: #fff;
+            border: none;
+            width: 80px;
+            height: 30px;
+            border-radius: 5px;
+        }
+        .txt{
+            border: 1px solid #ccc;
+            background-color: #fff;
+            color: #000;
+            width: 120px;
+        }
+        div{
+            font-size: 12px;
+            text-align: center;
+        }
+        div.box1{
+            width: 980px;
+            height: 100px;
+            margin: 30px auto;
+        }
+        .box{
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            background-color: #fff;
+            border: 1px solid #666;
+            margin: 4px 2px;
+            padding: 4px 2px;
+            flex: 1;
+        }
+        .active{
+            border: 1px solid red;
+            background-color: #449d44;
+        }
+        .select{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="button-bar">
+    <input type="button" value="深度遍历" class="btn" id="SD">
+    <input type="button" value="广度遍历" class="btn" id="GD">
+    <input type="text" placeholder="要查找的单词" class="btn txt" id="text1">
+    <input type="button" value="正查询" class="btn" id="CX1">
+    <input type="button" value="反查询" class="btn" id="CX2">
+    <input type="button" value="删除" class="btn" id="del">
+    <input type="text" placeholder="要添加的元素内容" class="btn txt" id="text2">
+    <input type="button" value="添加" class="btn" id="add">
+    <a href="https://github.com/AldrichFork/baidu_front_end_school/blob/master/task9.html">本任务代码地址</a>
+    <a href="index.html">所有Demo导航</a>
+    <a href="http://v2ss.net/users/aff.php?aff=1462" target="_blank">梯子:V2SS</a>
+</div>
+
+<div class="box box1">
+    Super
+    <div class="box">
+        Car
+        <div class="box">
+            Apple
+            <div class="box">
+                pear
+            </div>
+            <div class="box">
+                Pig
+            </div>
+            <div class="box">
+                Cola
+            </div>
+            <div class="box">
+                Soccer
+            </div>
+        </div>
+        <div class="box">
+            Phone
+        </div>
+        <div class="box">
+            <div class="box">
+                Book
+            </div>
+            <div class="box">
+                School
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        Note
+        <div class="box">
+            Human
+            <div class="box">
+                Code
+            </div>
+            <div class="box">
+                Operate
+            </div>
+            <div class="box">
+                Man
+            </div>
+        </div>
+        <div class="box">
+            Program
+            <div class="box">
+                Element
+                <div class="box">
+                    Cat
+                </div>
+            </div>
+            <div class="box">
+                Glass
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        Fish
+    </div>
+</div>
+
+<script>
+    var div=document.getElementsByClassName('box1')[0];
+    var boxes=document.getElementsByClassName("box");
+    var sd=document.getElementById('SD');
+    var gd=document.getElementById('GD');
+    var text1=document.getElementById('text1');
+    var text2=document.getElementById('text2');
+    var CX1=document.getElementById('CX1');
+    var CX2=document.getElementById('CX2');
+    var del=document.getElementById('del');
+    var add=document.getElementById("add");
+    var elements=[];//存储不同遍历方式得到的元素；每次重新开始遍历会清空该数组
+    var lists=[];
+    var timer;
+    //添加按钮行为
+    sd.onclick = function () {
+        btn_func(DFS,classTime1);
+    };
+    gd.onclick = function () {
+        btn_func(BFS,classTime1);
+    };
+    CX1.onclick = function () {
+        btn_func(DFS,classTime2);
+    };
+    CX2.onclick = function () {
+        btn_func(BFS,classTime2);
+    };
+    del.onclick=function () {
+        lists.forEach(function (e) {
+            if(e.className.indexOf("select")!==-1){
+                e.remove(this);
+            }
+        });
+        listItems();
+    };
+    add.onclick=function () {
+        var  sub=document.createElement("div");
+        var sub_txt=document.createTextNode(text2.value);
+        sub.appendChild(sub_txt);
+        sub.setAttribute("class","box");
+        lists.forEach(function (e) {
+            if(e.className.indexOf("select")!==-1){
+                e.appendChild(sub);
+            }
+        });
+        listItems();
+    };
+    //设置点击按钮后的函数行为
+    function btn_func(fn,classTime) {
+        reset();//1.清空旧数据和样式
+        fn(div);//自定深度或者广度遍历
+        classTime(elements, "active");//2.定时添加className
+    }
+    //1.重置和清空旧数据
+    function reset() {
+        clearClass("active","select");//重置className还原样式
+        clearTimeout(timer);
+        elements = [];
+    }
+    //清空多个className，比如“active”
+    function clearClass(val1,val2) {
+        lists.forEach(function (e) {
+            removeClass(e, val1);
+            removeClass(e, val2);
+        });
+    }
+    //2.使用递归来隔500ms添加className（数组，类属性值，递增参数）
+    var classTime1 = (function f(arr, value, i) {
+        if (i == undefined) i = 0;//或者函数外部定义i
+        addClass(arr[i], value);//添加className
+        if (i < arr.length) {
+            timer = setTimeout(function () {
+                clearClass(value);//删除className
+                f(arr, value, i);//递归操作
+            }, 500);
+            i++;
+        }
+    });
+    //查找到的元素取消其样式
+    var classTime2 = (function f(arr, value, i) {
+        if (i == undefined) i = 0;
+        if (!arr[i]) return false;
+        addClass(arr[i], value);
+        var val=text1.value;
+        if (arr[i].firstChild.nodeValue.trim()===val){
+            addClass(arr[i],"select");
+        }
+        if (i < arr.length) {
+            timer = setTimeout(function () {
+                f(arr, value, i);
+            }, 500);
+            i++;
+        }
+    });
+    //(深度)遍历
+    function DFS(node) {
+        if (node){
+            elements.push(node);
+            for(var i = 0, length = node.childElementCount; i < length; i++) {
+                DFS(node.children[i]);
+            }
+        }
+    }
+    //(广度)遍历
+    function BFS(node) {
+        if (node){
+            for(var i = 0, length = node.childElementCount; i < length; i++) {
+                BFS(node.children[i]);
+            }
+            elements.push(node);
+        }
+    }
+    //添加className
+    function addClass(element,value) {
+        if (!element) return false;
+        if (!element.className) {
+            element.className = value;
+        } else {
+            var tempName = element.className;
+            tempName += ' ';
+            tempName += value;
+            element.className = tempName;
+        }
+    }
+    //移除元素className
+    function removeClass(element,value) {
+        value = ' ' + value;//避免多次点击遍历按钮class空格增多影响观感
+        if (element.className.indexOf(value) !== -1) {
+            var tempName = element.className;
+            tempName = tempName.replace(value, '');
+            element.className = tempName;
+        }
+    }
+    //阻止点击该元素触发父元素
+    function stopPop(e) {
+        if(e) {
+            e.stopPropagation(); //非IE
+        } else {
+            window.event.cancelBubble = true; //IE阻止冒泡方法
+        }
+    }
+    function listItems() {
+        //获取所有box属性的类数组，lists不跟elements关联
+        //类数组boxes转化成数组lists
+        lists=Array.prototype.slice.call(boxes);
+        lists.forEach(function (e) {
+            e.onclick=function () {
+                reset();
+                addClass(this,'select');
+                stopPop();//阻止触发父元素
+            }
+        });
+    }
+    window.onload=listItems;
+</script>
+</body>
+</html>
